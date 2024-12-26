@@ -1,5 +1,5 @@
 ;; Cross-Realm Character Transfer System
-;; Complete implementation with signature verification and security features
+;; This contract enables gasless character transfers between different game realms
 
 (define-constant CONTRACT-OWNER tx-sender)
 (define-constant ERR-NOT-AUTHORIZED (err u1))
@@ -212,6 +212,7 @@
 (define-public (update-portal-fee (new-fee uint))
   (begin
     (asserts! (is-eq tx-sender CONTRACT-OWNER) ERR-NOT-AUTHORIZED)
+    ;; Validate new-fee (e.g., ensure it's within a reasonable range)
     (asserts! (and (>= new-fee u1) (<= new-fee u1000000)) ERR-INVALID-INPUT)
     (ok (var-set portal-fee new-fee))
   )
